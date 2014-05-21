@@ -29,7 +29,6 @@
 		3BE680191926709B00AE3D34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BE680171926709B00AE3D34 /* InfoPlist.strings */; };
 		3BE6801B1926709B00AE3D34 /* ProxyDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE6801A1926709B00AE3D34 /* ProxyDemoTests.m */; };
 		3BE680431926729900AE3D34 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE680421926729900AE3D34 /* SystemConfiguration.framework */; };
-		9D5BB61DDE234CD3978B15FF /* libPods-ProxyDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D67B44C3E0914D0E81F2A442 /* libPods-ProxyDemo.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +88,6 @@
 			files = (
 				3BE680431926729900AE3D34 /* SystemConfiguration.framework in Frameworks */,
 				3BE67FF11926709B00AE3D34 /* Cocoa.framework in Frameworks */,
-				9D5BB61DDE234CD3978B15FF /* libPods-ProxyDemo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +425,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -465,6 +464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
