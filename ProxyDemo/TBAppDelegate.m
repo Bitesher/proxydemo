@@ -9,20 +9,17 @@
 #import "TBAppDelegate.h"
 #import "DDHotKeyCenter.h"
 #import <Carbon/Carbon.h>
-#import "THUserNotification.h"
 #import "TBVPNService.h"
 
 CFStringRef TPTYPE;
 NSString *const autoStartKey = @"startAtLogin";
-
-static AuthorizationRef authRef;
-static AuthorizationFlags authFlags;
+NSString *const autoVPNKey = @"autoVPNKey";
 
 @interface TBAppDelegate ()
 @property (weak) IBOutlet NSMenu *menuBar;
 @property (nonatomic, strong) NSStatusItem  *statusBarItem;
 @property IBOutlet NSMenuItem *startAtLogin;
-@property (nonatomic, assign) BOOL open;
+@property (nonatomic, strong) NSMutableDictionary *vpnDict;
 @end
 
 @implementation TBAppDelegate
@@ -30,19 +27,14 @@ static AuthorizationFlags authFlags;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    authFlags = kAuthorizationFlagDefaults
-    | kAuthorizationFlagExtendRights
-    | kAuthorizationFlagInteractionAllowed
-    | kAuthorizationFlagPreAuthorize;
-    OSStatus authErr = AuthorizationCreate(nil, kAuthorizationEmptyEnvironment, authFlags, &authRef);
-    if (authErr != noErr) {
-        authRef = nil;
-    }else {
-        [self observeHotKey];
-        TPTYPE = kSCNetworkInterfaceTypeL2TP;
-    }
+    [self observeHotKey];
+    //选择打开类型
+    TPTYPE = kSCNetworkInterfaceTypeL2TP;
     [self setupStatusItem];
+    [self loadStartLoginTongle];
 }
+
+//初始化Menuitem
 
 - (void)setupStatusItem {
     self.statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:23.0];
@@ -50,30 +42,44 @@ static AuthorizationFlags authFlags;
     self.statusBarItem.alternateImage = [NSImage imageNamed:@"status_item_icon_alt"];
     self.statusBarItem.menu = self.menuBar;
     [self.statusBarItem setHighlightMode:YES];
-}
-
-- (IBAction)terminalPressed:(NSMenuItem *)sender {
-    [NSApp terminate:nil];
-}
-
-- (void)observeHotKey {
-    DDHotKeyCenter *ddhot = [DDHotKeyCenter sharedHotKeyCenter];
-    typeof(self) __unused weakSelf = self;
-    [ddhot registerHotKeyWithKeyCode:kVK_ANSI_F modifierFlags:NSControlKeyMask|NSShiftKeyMask task:^(NSEvent *event) {
-//        [weakSelf changeSystemProxy];
-        
-        CFArrayRef vpnlist = [[TBVPNService sharedService] vpnList];
-        for (CFIndex i = 0; i< CFArrayGetCount(vpnlist); i++) {
-            SCNetworkServiceRef vpn = CFArrayGetValueAtIndex(vpnlist, i);
-            if (CFEqual(TPTYPE, [[TBVPNService sharedService] typeOfPPPService:vpn]))
-                [[TBVPNService sharedService] startWithService:vpn];
-        }
-    }];
-}
-
-- (IBAction)startAtLoginToggle:(id)pid {
+    
+    self.vpnDict = [@{} mutableCopy];
+    [self.menuBar insertItem:[NSMenuItem separatorItem] atIndex:1];
+    
+    CFArrayRef vpnlist = [[TBVPNService sharedService] vpnList];
+    if (!CFArrayGetCount(vpnlist)) return;
+    
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    [prefs setBool:!self.startAtLogin.state forKey:autoStartKey];
+
+    if (![prefs objectForKey:autoVPNKey]) {
+        [prefs setObject:(__bridge NSString *)(SCNetworkServiceGetServiceID(CFArrayGetValueAtIndex(vpnlist, 0))) forKey:autoVPNKey];
+        [prefs synchronize];
+    }
+
+    for (CFIndex i = 0; i< CFArrayGetCount(vpnlist); i++) {
+        //遍历可用vpn
+        SCNetworkServiceRef service = CFArrayGetValueAtIndex(vpnlist, i);
+        NSString *serviceName =  (__bridge NSString *)[[TBVPNService sharedService] nameOfPPPService:service];
+        NSMenuItem *newItem = [[NSMenuItem alloc] initWithTitle:serviceName action:@selector(handleVpnMenu:) keyEquivalent:@""];
+        newItem.representedObject = serviceName;
+        if (kSCNetworkConnectionConnected
+            == [[TBVPNService sharedService] statusServiceAvilable:service]) {
+            newItem.state = 1;
+            //保存默认选择项
+            NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+            [prefs setObject:(__bridge NSString *)(SCNetworkServiceGetServiceID(service)) forKey:autoVPNKey];
+            [prefs synchronize];
+        }
+        newItem.tag = i;
+        [self.menuBar insertItem:newItem atIndex:i+2];
+        
+        //记录vpn名字和id
+        self.vpnDict[serviceName] = (__bridge NSString *)(SCNetworkServiceGetServiceID(service));
+    }
+}
+
+- (void)loadStartLoginTongle{
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     if([prefs boolForKey:autoStartKey]) {
         [self addAppAsLoginItem];
     } else {
@@ -82,6 +88,61 @@ static AuthorizationFlags authFlags;
     self.startAtLogin.state = [prefs boolForKey:autoStartKey];
 }
 
+- (void)observeHotKey {
+    DDHotKeyCenter *ddhot = [DDHotKeyCenter sharedHotKeyCenter];
+    [ddhot registerHotKeyWithKeyCode:kVK_ANSI_F modifierFlags:NSControlKeyMask|NSShiftKeyMask task:^(NSEvent *event) {
+        //快捷键触发操作
+        
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        CFStringRef serviceID = (__bridge CFStringRef)([prefs objectForKey:autoVPNKey]);
+        SCNetworkServiceRef service = [[TBVPNService sharedService] serviceFromServiceID:serviceID];
+        if (kSCNetworkConnectionConnected != [[TBVPNService sharedService] statusServiceAvilable:service]
+            && kSCNetworkConnectionDisconnected != [[TBVPNService sharedService] statusServiceAvilable:service])
+            return;//当vpn不在已连接/未连接状态下时不做任何操作(避免在正在连接时重复发起连接)
+        [[TBVPNService sharedService] startWithService:service];
+        if (kSCNetworkConnectionDisconnected == [[TBVPNService sharedService] statusServiceAvilable:service]) {
+            [[TBVPNService sharedService] startWithService:service];
+        }else {
+            [[TBVPNService sharedService] stopWithService:service];
+        }
+
+    }];
+}
+
+#pragma mark action
+- (void)handleVpnMenu:(NSMenuItem *)item {
+    CFStringRef serviceid = (__bridge CFStringRef)(self.vpnDict[item.title]);
+    SCNetworkServiceRef service = [[TBVPNService sharedService] serviceFromServiceID:serviceid];
+    if (kSCNetworkConnectionConnected != [[TBVPNService sharedService] statusServiceAvilable:service]
+        && kSCNetworkConnectionDisconnected != [[TBVPNService sharedService] statusServiceAvilable:service])
+        return;//当vpn不在已连接/未连接状态下时不做任何操作(避免在正在连接时重复发起连接)
+    
+    if ((item.state = !item.state)) {
+        [[TBVPNService sharedService] startWithService:service];
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        [prefs setObject:(__bridge NSString *)(SCNetworkServiceGetServiceID(service)) forKey:autoVPNKey];
+        [prefs synchronize];
+    }else {
+        [[TBVPNService sharedService] stopWithService:service];
+    }
+}
+
+
+#pragma mark 开机启动
+
+- (IBAction)startAtLoginToggle:(id)pid {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setBool:!self.startAtLogin.state forKey:autoStartKey];
+    [prefs synchronize];
+    if([prefs boolForKey:autoStartKey]) {
+        [self addAppAsLoginItem];
+    } else {
+        [self deleteAppFromLoginItem];
+    }
+    self.startAtLogin.state = [prefs boolForKey:autoStartKey];
+}
+
+//添加开机启动
 -(void)addAppAsLoginItem{
     NSString * appPath = [[NSBundle mainBundle] bundlePath];
     NSURL *url = [NSURL fileURLWithPath:appPath];
@@ -96,6 +157,7 @@ static AuthorizationFlags authFlags;
     }
 }
 
+//删除开机启动
 -(void) deleteAppFromLoginItem{
     UInt32 seedValue;
     NSString * appPath = [[NSBundle mainBundle] bundlePath];
@@ -115,79 +177,6 @@ static AuthorizationFlags authFlags;
             }
         }
     }
-}
-
-- (void)changeSystemProxy{
-    NSMutableDictionary *previousDeviceProxies = [NSMutableDictionary new];
-
-    SCPreferencesRef prefRef = SCPreferencesCreateWithAuthorization(nil, CFSTR("modifyProxy"), nil, authRef);
-    
-    NSDictionary *sets = (__bridge NSDictionary *)SCPreferencesGetValue(prefRef, kSCPrefNetworkServices);
-    // 遍历系统中的网络设备列表，设置 AirPort 和 Ethernet 的代理
-    if (previousDeviceProxies.count == 0) {
-        for (NSString *key in [sets allKeys]) {
-            NSMutableDictionary *dict = [sets objectForKey:key];
-            NSString *hardware = [dict valueForKeyPath:@"Interface.Hardware"];
-            if ([hardware isEqualToString:@"AirPort"] || [hardware isEqualToString:@"Ethernet"]) {
-                NSDictionary *proxies = [dict objectForKey:(NSString *)kSCEntNetProxies];
-                if (proxies != nil) {
-                    [previousDeviceProxies setObject:[proxies mutableCopy] forKey:key];
-                }
-            }
-        }
-    }
-    
-    // 如果已经获取了旧的代理设置就直接用之前获取的，防止第二次获取到设置过的代理
-    for (NSString *deviceId in previousDeviceProxies) {
-        CFDictionaryRef proxies = SCPreferencesPathGetValue(prefRef, (__bridge CFStringRef)[self proxiesPathOfDevice:deviceId]);
-        [self modifyPrefProxiesDictionary:(__bridge NSMutableDictionary *)proxies];
-        SCPreferencesPathSetValue(prefRef, (__bridge CFStringRef)[self proxiesPathOfDevice:deviceId], proxies);
-    }
-    
-    SCPreferencesCommitChanges(prefRef);
-    SCPreferencesApplyChanges(prefRef);
-    SCPreferencesSynchronize(prefRef);
-    
-    [self postLocalNotification:self.open];
-}
-
-- (NSString *)proxiesPathOfDevice:(NSString *)devId {
-    NSString *path = [NSString stringWithFormat:@"/%@/%@/%@", kSCPrefNetworkServices, devId, kSCEntNetProxies];
-    return path;
-}
-
-- (void)modifyPrefProxiesDictionary:(NSMutableDictionary *)proxies{
-    NSInteger proxyPort = 8087;
-    NSArray *proxyTypes = @[@"PROXY"];
-    
-    if ([proxyTypes indexOfObject:@"PROXY"] != NSNotFound) {
-        [proxies setObject:[NSNumber numberWithInteger:proxyPort] forKey:(NSString *)kCFNetworkProxiesHTTPPort];
-        [proxies setObject:@"127.0.0.1" forKey:(NSString *)kCFNetworkProxiesHTTPProxy];
-        [proxies setObject:[NSNumber numberWithInteger:proxyPort] forKey:(NSString *)kCFNetworkProxiesHTTPSPort];
-        [proxies setObject:@"127.0.0.1" forKey:(NSString *)kCFNetworkProxiesHTTPSProxy];
-        
-        BOOL previousEnable = [[proxies objectForKey:(NSString *)kCFNetworkProxiesHTTPEnable] boolValue];
-        [proxies setObject:[NSNumber numberWithInt:previousEnable?0:1] forKey:(NSString *)kCFNetworkProxiesHTTPEnable];
-        [proxies setObject:[NSNumber numberWithInt:previousEnable?0:1] forKey:(NSString *)kCFNetworkProxiesHTTPSEnable];
-        self.open = previousEnable?0:1;
-    }
-}
-
-- (void)postLocalNotification:(BOOL )isopen{
-    THUserNotification *notification = [THUserNotification notification];
-    notification.title = @"Proxy";
-    notification.informativeText = isopen?@"打开":@"关闭";
-    //设置通知提交的时间
-    notification.deliveryDate = [NSDate dateWithTimeIntervalSinceNow:1];
-    
-    THUserNotificationCenter *center = [THUserNotificationCenter notificationCenter];
-    if ([center isKindOfClass:[THUserNotificationCenter class]]) {
-        center.centerType = THUserNotificationCenterTypeBanner;
-    }
-    //删除已经显示过的通知(已经存在用户的通知列表中的)
-    [center removeAllDeliveredNotifications];
-    //递交通知
-    [center deliverNotification:notification];
 }
 
 @end

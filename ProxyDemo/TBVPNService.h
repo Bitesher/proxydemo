@@ -17,7 +17,14 @@
 
 - (void)startWithService:(SCNetworkServiceRef )service;
 
-- (SCNetworkConnectionStatus )isServiceAvilable:(SCNetworkServiceRef )service;
+- (void)stopWithService:(SCNetworkServiceRef )service;
 
-- (CFStringRef )typeOfPPPService:(SCNetworkServiceRef )service;
+- (SCNetworkConnectionStatus )statusServiceAvilable:(SCNetworkServiceRef )service;
+
+- (CFStringRef )nameOfPPPService:(SCNetworkServiceRef )service;
+
+- (CFStringRef )nameOfPPPServiceID:(CFStringRef )service_id;
+
+- (SCNetworkServiceRef )serviceFromServiceID:(CFStringRef )service_id;
+
 @end
