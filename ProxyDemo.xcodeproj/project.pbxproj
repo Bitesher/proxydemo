@@ -29,6 +29,7 @@
 		3BE680191926709B00AE3D34 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3BE680171926709B00AE3D34 /* InfoPlist.strings */; };
 		3BE6801B1926709B00AE3D34 /* ProxyDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE6801A1926709B00AE3D34 /* ProxyDemoTests.m */; };
 		3BE680431926729900AE3D34 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BE680421926729900AE3D34 /* SystemConfiguration.framework */; };
+		3BEC822A19938630004D0B25 /* TBVPNService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BEC822919938630004D0B25 /* TBVPNService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,8 @@
 		3BE680181926709B00AE3D34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3BE6801A1926709B00AE3D34 /* ProxyDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProxyDemoTests.m; sourceTree = "<group>"; };
 		3BE680421926729900AE3D34 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3BEC822819938630004D0B25 /* TBVPNService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBVPNService.h; sourceTree = "<group>"; };
+		3BEC822919938630004D0B25 /* TBVPNService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBVPNService.m; sourceTree = "<group>"; };
 		C7547738656344F98B448A6C /* Pods-ProxyDemo.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ProxyDemo.xcconfig"; path = "Pods/Pods-ProxyDemo.xcconfig"; sourceTree = "<group>"; };
 		D67B44C3E0914D0E81F2A442 /* libPods-ProxyDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProxyDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -178,6 +181,8 @@
 				3B209BCE1927B94100ACB31C /* DDHotKey */,
 				3BE680021926709B00AE3D34 /* TBAppDelegate.h */,
 				3BE680031926709B00AE3D34 /* TBAppDelegate.m */,
+				3BEC822819938630004D0B25 /* TBVPNService.h */,
+				3BEC822919938630004D0B25 /* TBVPNService.m */,
 				3BE680051926709B00AE3D34 /* MainMenu.xib */,
 				3BE67FF71926709B00AE3D34 /* Supporting Files */,
 			);
@@ -361,6 +366,7 @@
 				3B209BCB1927B93400ACB31C /* DDHotKeyCenter.m in Sources */,
 				3B17C76F192BA52A005F7843 /* THUserNotification.m in Sources */,
 				3B209BCD1927B93400ACB31C /* DDHotKeyUtilities.m in Sources */,
+				3BEC822A19938630004D0B25 /* TBVPNService.m in Sources */,
 				3BE67FFD1926709B00AE3D34 /* main.m in Sources */,
 				3B209BCC1927B93400ACB31C /* DDHotKeyTextField.m in Sources */,
 				3B17C76E192BA52A005F7843 /* McAnimationUtility.m in Sources */,

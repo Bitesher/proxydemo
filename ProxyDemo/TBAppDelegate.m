@@ -7,11 +7,13 @@
 //
 
 #import "TBAppDelegate.h"
-#import <SystemConfiguration/SystemConfiguration.h>
 #import "DDHotKeyCenter.h"
 #import <Carbon/Carbon.h>
 #import "THUserNotification.h"
+#import "TBVPNService.h"
 
+CFStringRef TPTYPE;
+NSString *const autoStartKey = @"startAtLogin";
 
 static AuthorizationRef authRef;
 static AuthorizationFlags authFlags;
@@ -19,6 +21,7 @@ static AuthorizationFlags authFlags;
 @interface TBAppDelegate ()
 @property (weak) IBOutlet NSMenu *menuBar;
 @property (nonatomic, strong) NSStatusItem  *statusBarItem;
+@property IBOutlet NSMenuItem *startAtLogin;
 @property (nonatomic, assign) BOOL open;
 @end
 
@@ -36,6 +39,7 @@ static AuthorizationFlags authFlags;
         authRef = nil;
     }else {
         [self observeHotKey];
+        TPTYPE = kSCNetworkInterfaceTypeL2TP;
     }
     [self setupStatusItem];
 }
@@ -54,10 +58,63 @@ static AuthorizationFlags authFlags;
 
 - (void)observeHotKey {
     DDHotKeyCenter *ddhot = [DDHotKeyCenter sharedHotKeyCenter];
-    typeof(self) weakSelf = self;
+    typeof(self) __unused weakSelf = self;
     [ddhot registerHotKeyWithKeyCode:kVK_ANSI_F modifierFlags:NSControlKeyMask|NSShiftKeyMask task:^(NSEvent *event) {
-        [weakSelf changeSystemProxy];
+//        [weakSelf changeSystemProxy];
+        
+        CFArrayRef vpnlist = [[TBVPNService sharedService] vpnList];
+        for (CFIndex i = 0; i< CFArrayGetCount(vpnlist); i++) {
+            SCNetworkServiceRef vpn = CFArrayGetValueAtIndex(vpnlist, i);
+            if (CFEqual(TPTYPE, [[TBVPNService sharedService] typeOfPPPService:vpn]))
+                [[TBVPNService sharedService] startWithService:vpn];
+        }
     }];
+}
+
+- (IBAction)startAtLoginToggle:(id)pid {
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setBool:!self.startAtLogin.state forKey:autoStartKey];
+    if([prefs boolForKey:autoStartKey]) {
+        [self addAppAsLoginItem];
+    } else {
+        [self deleteAppFromLoginItem];
+    }
+    self.startAtLogin.state = [prefs boolForKey:autoStartKey];
+}
+
+-(void)addAppAsLoginItem{
+    NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    NSURL *url = [NSURL fileURLWithPath:appPath];
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    if (loginItems) {
+        //Insert an item to the list.
+        LSSharedFileListItemRef item = LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemLast, NULL, NULL, (__bridge CFURLRef)(url), NULL, NULL);
+        if (item){
+            CFRelease(item);
+        }
+        CFRelease(loginItems);
+    }
+}
+
+-(void) deleteAppFromLoginItem{
+    UInt32 seedValue;
+    NSString * appPath = [[NSBundle mainBundle] bundlePath];
+    NSURL *url = [NSURL fileURLWithPath:appPath];
+    LSSharedFileListRef loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
+    CFURLRef urlRef = (__bridge CFURLRef)url;
+    
+    if (loginItems) {
+        NSArray  *loginItemsArray = (NSArray *)CFBridgingRelease(LSSharedFileListCopySnapshot(loginItems, &seedValue));
+        for(int i = 0 ; i< [loginItemsArray count]; i++) {
+            LSSharedFileListItemRef itemRef = (__bridge LSSharedFileListItemRef)([loginItemsArray objectAtIndex:i]);
+            if (LSSharedFileListItemResolve(itemRef, 0, &urlRef, NULL) == noErr) {
+                NSString *urlPath = [url path];
+                if ([urlPath compare:appPath] == NSOrderedSame){
+                    LSSharedFileListItemRemove(loginItems,itemRef);
+                }
+            }
+        }
+    }
 }
 
 - (void)changeSystemProxy{
@@ -112,7 +169,7 @@ static AuthorizationFlags authFlags;
         BOOL previousEnable = [[proxies objectForKey:(NSString *)kCFNetworkProxiesHTTPEnable] boolValue];
         [proxies setObject:[NSNumber numberWithInt:previousEnable?0:1] forKey:(NSString *)kCFNetworkProxiesHTTPEnable];
         [proxies setObject:[NSNumber numberWithInt:previousEnable?0:1] forKey:(NSString *)kCFNetworkProxiesHTTPSEnable];
-        self.open = !previousEnable;
+        self.open = previousEnable?0:1;
     }
 }
 
