@@ -11,15 +11,14 @@
 #import <Carbon/Carbon.h>
 #import "TBVPNService.h"
 
-CFStringRef TPTYPE;
 NSString *const autoStartKey = @"startAtLogin";
 NSString *const autoVPNKey = @"autoVPNKey";
 
 @interface TBAppDelegate ()
 @property (weak) IBOutlet NSMenu *menuBar;
-@property (nonatomic, strong) NSStatusItem  *statusBarItem;
 @property IBOutlet NSMenuItem *startAtLogin;
 @property (nonatomic, strong) NSMutableDictionary *vpnDict;
+@property (nonatomic, strong) NSStatusItem  *statusBarItem;
 @end
 
 @implementation TBAppDelegate
@@ -28,10 +27,8 @@ NSString *const autoVPNKey = @"autoVPNKey";
 {
     // Insert code here to initialize your application
     [self observeHotKey];
-    //选择打开类型
-    TPTYPE = kSCNetworkInterfaceTypeL2TP;
     [self setupStatusItem];
-    [self loadStartLoginTongle];
+    [self setupStartLogin];
 }
 
 //初始化Menuitem
@@ -78,7 +75,7 @@ NSString *const autoVPNKey = @"autoVPNKey";
     }
 }
 
-- (void)loadStartLoginTongle{
+- (void)setupStartLogin{
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     if([prefs boolForKey:autoStartKey]) {
         [self addAppAsLoginItem];
@@ -126,7 +123,6 @@ NSString *const autoVPNKey = @"autoVPNKey";
         [[TBVPNService sharedService] stopWithService:service];
     }
 }
-
 
 #pragma mark 开机启动
 
