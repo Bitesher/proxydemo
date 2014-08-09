@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3BE67FEC1926709B00AE3D34"
-               BuildableName = "ProxyDemo.app"
-               BlueprintName = "ProxyDemo"
-               ReferencedContainer = "container:ProxyDemo.xcodeproj">
+               BuildableName = "vpnHelper.app"
+               BlueprintName = "vpnHelper"
+               ReferencedContainer = "container:vpnHelper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,24 +28,14 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3BE6800D1926709B00AE3D34"
-               BuildableName = "ProxyDemoTests.xctest"
-               BlueprintName = "ProxyDemoTests"
-               ReferencedContainer = "container:ProxyDemo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3BE67FEC1926709B00AE3D34"
-            BuildableName = "ProxyDemo.app"
-            BlueprintName = "ProxyDemo"
-            ReferencedContainer = "container:ProxyDemo.xcodeproj">
+            BuildableName = "vpnHelper.app"
+            BlueprintName = "vpnHelper"
+            ReferencedContainer = "container:vpnHelper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -62,9 +52,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3BE67FEC1926709B00AE3D34"
-            BuildableName = "ProxyDemo.app"
-            BlueprintName = "ProxyDemo"
-            ReferencedContainer = "container:ProxyDemo.xcodeproj">
+            BuildableName = "vpnHelper.app"
+            BlueprintName = "vpnHelper"
+            ReferencedContainer = "container:vpnHelper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -80,9 +70,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3BE67FEC1926709B00AE3D34"
-            BuildableName = "ProxyDemo.app"
-            BlueprintName = "ProxyDemo"
-            ReferencedContainer = "container:ProxyDemo.xcodeproj">
+            BuildableName = "vpnHelper.app"
+            BlueprintName = "vpnHelper"
+            ReferencedContainer = "container:vpnHelper.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

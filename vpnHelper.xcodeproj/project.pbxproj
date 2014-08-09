@@ -51,22 +51,22 @@
 		3B209BC81927B93400ACB31C /* DDHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyTextField.m; sourceTree = "<group>"; };
 		3B209BC91927B93400ACB31C /* DDHotKeyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyUtilities.h; sourceTree = "<group>"; };
 		3B209BCA1927B93400ACB31C /* DDHotKeyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyUtilities.m; sourceTree = "<group>"; };
-		3BE67FED1926709B00AE3D34 /* ProxyDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProxyDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BE67FED1926709B00AE3D34 /* vpnHelper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vpnHelper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE67FF01926709B00AE3D34 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		3BE67FF31926709B00AE3D34 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		3BE67FF41926709B00AE3D34 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3BE67FF51926709B00AE3D34 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		3BE67FF81926709B00AE3D34 /* ProxyDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProxyDemo-Info.plist"; sourceTree = "<group>"; };
+		3BE67FF81926709B00AE3D34 /* vpnHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vpnHelper-Info.plist"; sourceTree = "<group>"; };
 		3BE67FFA1926709B00AE3D34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3BE67FFC1926709B00AE3D34 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3BE67FFE1926709B00AE3D34 /* ProxyDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProxyDemo-Prefix.pch"; sourceTree = "<group>"; };
+		3BE67FFE1926709B00AE3D34 /* vpnHelper-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "vpnHelper-Prefix.pch"; sourceTree = "<group>"; };
 		3BE680001926709B00AE3D34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		3BE680021926709B00AE3D34 /* TBAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TBAppDelegate.h; sourceTree = "<group>"; };
 		3BE680031926709B00AE3D34 /* TBAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TBAppDelegate.m; sourceTree = "<group>"; };
 		3BE680061926709B00AE3D34 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		3BE6800E1926709B00AE3D34 /* ProxyDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ProxyDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BE6800E1926709B00AE3D34 /* vpnHelperTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = vpnHelperTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BE6800F1926709B00AE3D34 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		3BE680161926709B00AE3D34 /* ProxyDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ProxyDemoTests-Info.plist"; sourceTree = "<group>"; };
+		3BE680161926709B00AE3D34 /* vpnHelperTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "vpnHelperTests-Info.plist"; sourceTree = "<group>"; };
 		3BE680181926709B00AE3D34 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3BE6801A1926709B00AE3D34 /* ProxyDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProxyDemoTests.m; sourceTree = "<group>"; };
 		3BE680421926729900AE3D34 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -126,8 +126,8 @@
 		3BE67FEE1926709B00AE3D34 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3BE67FED1926709B00AE3D34 /* ProxyDemo.app */,
-				3BE6800E1926709B00AE3D34 /* ProxyDemoTests.xctest */,
+				3BE67FED1926709B00AE3D34 /* vpnHelper.app */,
+				3BE6800E1926709B00AE3D34 /* vpnHelperTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -175,10 +175,10 @@
 				3B17C761192B9CCB005F7843 /* status_item_icon@2x.png */,
 				3B17C762192B9CCB005F7843 /* status_item_icon_alt.png */,
 				3B17C763192B9CCB005F7843 /* status_item_icon_alt@2x.png */,
-				3BE67FF81926709B00AE3D34 /* ProxyDemo-Info.plist */,
+				3BE67FF81926709B00AE3D34 /* vpnHelper-Info.plist */,
 				3BE67FF91926709B00AE3D34 /* InfoPlist.strings */,
 				3BE67FFC1926709B00AE3D34 /* main.m */,
-				3BE67FFE1926709B00AE3D34 /* ProxyDemo-Prefix.pch */,
+				3BE67FFE1926709B00AE3D34 /* vpnHelper-Prefix.pch */,
 				3BE67FFF1926709B00AE3D34 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
@@ -196,7 +196,7 @@
 		3BE680151926709B00AE3D34 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3BE680161926709B00AE3D34 /* ProxyDemoTests-Info.plist */,
+				3BE680161926709B00AE3D34 /* vpnHelperTests-Info.plist */,
 				3BE680171926709B00AE3D34 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
@@ -205,9 +205,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3BE67FEC1926709B00AE3D34 /* ProxyDemo */ = {
+		3BE67FEC1926709B00AE3D34 /* vpnHelper */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3BE6801E1926709B00AE3D34 /* Build configuration list for PBXNativeTarget "ProxyDemo" */;
+			buildConfigurationList = 3BE6801E1926709B00AE3D34 /* Build configuration list for PBXNativeTarget "vpnHelper" */;
 			buildPhases = (
 				1CBAE4C0482D43018DC1BBC3 /* Check Pods Manifest.lock */,
 				3BE67FE91926709B00AE3D34 /* Sources */,
@@ -219,14 +219,14 @@
 			);
 			dependencies = (
 			);
-			name = ProxyDemo;
+			name = vpnHelper;
 			productName = ProxyDemo;
-			productReference = 3BE67FED1926709B00AE3D34 /* ProxyDemo.app */;
+			productReference = 3BE67FED1926709B00AE3D34 /* vpnHelper.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3BE6800D1926709B00AE3D34 /* ProxyDemoTests */ = {
+		3BE6800D1926709B00AE3D34 /* vpnHelperTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3BE680211926709B00AE3D34 /* Build configuration list for PBXNativeTarget "ProxyDemoTests" */;
+			buildConfigurationList = 3BE680211926709B00AE3D34 /* Build configuration list for PBXNativeTarget "vpnHelperTests" */;
 			buildPhases = (
 				3BE6800A1926709B00AE3D34 /* Sources */,
 				3BE6800B1926709B00AE3D34 /* Frameworks */,
@@ -237,9 +237,9 @@
 			dependencies = (
 				3BE680131926709B00AE3D34 /* PBXTargetDependency */,
 			);
-			name = ProxyDemoTests;
+			name = vpnHelperTests;
 			productName = ProxyDemoTests;
-			productReference = 3BE6800E1926709B00AE3D34 /* ProxyDemoTests.xctest */;
+			productReference = 3BE6800E1926709B00AE3D34 /* vpnHelperTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -257,7 +257,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3BE67FE81926709B00AE3D34 /* Build configuration list for PBXProject "ProxyDemo" */;
+			buildConfigurationList = 3BE67FE81926709B00AE3D34 /* Build configuration list for PBXProject "vpnHelper" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -270,8 +270,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3BE67FEC1926709B00AE3D34 /* ProxyDemo */,
-				3BE6800D1926709B00AE3D34 /* ProxyDemoTests */,
+				3BE67FEC1926709B00AE3D34 /* vpnHelper */,
+				3BE6800D1926709B00AE3D34 /* vpnHelperTests */,
 			);
 		};
 /* End PBXProject section */
@@ -362,7 +362,7 @@
 /* Begin PBXTargetDependency section */
 		3BE680131926709B00AE3D34 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3BE67FEC1926709B00AE3D34 /* ProxyDemo */;
+			target = 3BE67FEC1926709B00AE3D34 /* vpnHelper */;
 			targetProxy = 3BE680121926709B00AE3D34 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -481,9 +481,9 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ProxyDemo/ProxyDemo-Prefix.pch";
-				INFOPLIST_FILE = "ProxyDemo/ProxyDemo-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "ProxyDemo/vpnHelper-Prefix.pch";
+				INFOPLIST_FILE = "ProxyDemo/vpnHelper-Info.plist";
+				PRODUCT_NAME = vpnHelper;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -494,9 +494,9 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ProxyDemo/ProxyDemo-Prefix.pch";
-				INFOPLIST_FILE = "ProxyDemo/ProxyDemo-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				GCC_PREFIX_HEADER = "ProxyDemo/vpnHelper-Prefix.pch";
+				INFOPLIST_FILE = "ProxyDemo/vpnHelper-Info.plist";
+				PRODUCT_NAME = vpnHelper;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -516,8 +516,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "ProxyDemoTests/ProxyDemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ProxyDemoTests/vpnHelperTests-Info.plist";
+				PRODUCT_NAME = vpnHelperTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -534,8 +534,8 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ProxyDemo/ProxyDemo-Prefix.pch";
-				INFOPLIST_FILE = "ProxyDemoTests/ProxyDemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				INFOPLIST_FILE = "ProxyDemoTests/vpnHelperTests-Info.plist";
+				PRODUCT_NAME = vpnHelperTests;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
@@ -544,7 +544,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3BE67FE81926709B00AE3D34 /* Build configuration list for PBXProject "ProxyDemo" */ = {
+		3BE67FE81926709B00AE3D34 /* Build configuration list for PBXProject "vpnHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3BE6801C1926709B00AE3D34 /* Debug */,
@@ -553,7 +553,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3BE6801E1926709B00AE3D34 /* Build configuration list for PBXNativeTarget "ProxyDemo" */ = {
+		3BE6801E1926709B00AE3D34 /* Build configuration list for PBXNativeTarget "vpnHelper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3BE6801F1926709B00AE3D34 /* Debug */,
@@ -562,7 +562,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3BE680211926709B00AE3D34 /* Build configuration list for PBXNativeTarget "ProxyDemoTests" */ = {
+		3BE680211926709B00AE3D34 /* Build configuration list for PBXNativeTarget "vpnHelperTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3BE680221926709B00AE3D34 /* Debug */,
