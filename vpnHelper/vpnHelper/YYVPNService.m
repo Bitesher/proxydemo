@@ -73,13 +73,19 @@
     return [self nameOfPPPService:service];
 }
 
-- (void)startWithService:(SCNetworkServiceRef )service {
+- (void)startWithService:(SCNetworkServiceRef )service successfullBlock:(void (^)())successfullBlock failureBlock:(void (^)(NSError *))faulureBlock{
     SCNetworkConnectionRef connection = [self createAConnectionWithService:service];
     
     switch (SCNetworkConnectionGetStatus(connection)) {
         case kSCNetworkConnectionDisconnected: {
-            if (!SCNetworkConnectionStart(connection, NULL, FALSE))
+            if (!SCNetworkConnectionStart(connection, NULL, FALSE)) {
                 NSLog(@"连接不成功!");
+                if (faulureBlock) faulureBlock(nil);
+            }
+            else {
+                if (successfullBlock) successfullBlock();
+                NSLog(@"连接成功!");
+            }
         }
             break;
         case kSCNetworkConnectionConnecting:
@@ -100,7 +106,7 @@
     }
 }
 
-- (void)stopWithService:(SCNetworkServiceRef )service {
+- (void)stopWithService:(SCNetworkServiceRef )service successfullBlock:(void (^)())successfullBlock failureBlock:(void (^)(NSError *))faulureBlock{
     SCNetworkConnectionRef connection = [self createAConnectionWithService:service];
     
     switch (SCNetworkConnectionGetStatus(connection)) {
@@ -117,8 +123,11 @@
             NSLog(@"正在断开连接...\n");
             if (!SCNetworkConnectionStop(connection, TRUE)) {
                 NSLog(@"断开不成功!");
-            }else {
+                if (faulureBlock) faulureBlock(nil);
+            }
+            else {
                 NSLog(@"断开成功!");
+                if (successfullBlock) successfullBlock();
             }
         }
             break;

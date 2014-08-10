@@ -15,9 +15,13 @@
 
 - (CFArrayRef )vpnList;
 
-- (void)startWithService:(SCNetworkServiceRef )service;
+- (void)startWithService:(SCNetworkServiceRef )service
+            successfullBlock:(void(^)())successfullBlock
+            failureBlock:(void (^)(NSError *))faulureBlock;
 
-- (void)stopWithService:(SCNetworkServiceRef )service;
+- (void)stopWithService:(SCNetworkServiceRef )service
+           successfullBlock:(void(^)())successfullBlock
+           failureBlock:(void (^)(NSError *))faulureBlock;
 
 - (SCNetworkConnectionStatus )statusServiceAvilable:(SCNetworkServiceRef )service;
 

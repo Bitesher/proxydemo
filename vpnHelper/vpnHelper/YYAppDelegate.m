@@ -97,11 +97,11 @@ NSString *const autoVPNKey = @"autoVPNKey";
             && kSCNetworkConnectionDisconnected != [[YYVPNService sharedService] statusServiceAvilable:service])
             return;//当vpn不在已连接/未连接状态下时不做任何操作(避免在正在连接时重复发起连接)
         
-        [[YYVPNService sharedService] startWithService:service];
+        [[YYVPNService sharedService] startWithService:service successfullBlock:nil failureBlock:nil];
         if (kSCNetworkConnectionDisconnected == [[YYVPNService sharedService] statusServiceAvilable:service]) {
-            [[YYVPNService sharedService] startWithService:service];
+            [[YYVPNService sharedService] startWithService:service successfullBlock:nil failureBlock:nil];
         }else {
-            [[YYVPNService sharedService] stopWithService:service];
+            [[YYVPNService sharedService] stopWithService:service successfullBlock:nil failureBlock:nil];
         }
         
     }];
@@ -120,9 +120,9 @@ NSString *const autoVPNKey = @"autoVPNKey";
     [prefs synchronize];
     
     if ((item.state = !item.state)) {
-        [[YYVPNService sharedService] startWithService:service];
+        [[YYVPNService sharedService] startWithService:service successfullBlock:nil failureBlock:nil];
     }else {
-        [[YYVPNService sharedService] stopWithService:service];
+        [[YYVPNService sharedService] stopWithService:service successfullBlock:nil failureBlock:nil];
     }
 }
 
