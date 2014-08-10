@@ -38,7 +38,6 @@ NSString *const autoVPNKey = @"autoVPNKey";
 - (void)setupStatusItem {
     self.statusBarItem = [[NSStatusBar systemStatusBar] statusItemWithLength:23.0];
     self.statusBarItem.image = [NSImage imageNamed:@"status_item_icon"];
-    self.statusBarItem.alternateImage = [NSImage imageNamed:@"status_item_icon_alt"];
     self.statusBarItem.menu = self.menuBar;
     [self.statusBarItem setHighlightMode:YES];
     

@@ -21,6 +21,8 @@
 		3B9E9379199611AC00565A36 /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9E9376199611AC00565A36 /* DDHotKeyUtilities.m */; };
 		3B9E937D199611C100565A36 /* YYVPNService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9E937C199611C100565A36 /* YYVPNService.m */; };
 		3B9E9380199757AC00565A36 /* YYStartLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9E937F199757AC00565A36 /* YYStartLoginService.m */; };
+		3B9E93861997B03B00565A36 /* status_item_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9E93841997B03B00565A36 /* status_item_icon.png */; };
+		3B9E93871997B03B00565A36 /* status_item_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9E93851997B03B00565A36 /* status_item_icon@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		3B9E937C199611C100565A36 /* YYVPNService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYVPNService.m; sourceTree = "<group>"; };
 		3B9E937E199757AC00565A36 /* YYStartLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYStartLoginService.h; sourceTree = "<group>"; };
 		3B9E937F199757AC00565A36 /* YYStartLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYStartLoginService.m; sourceTree = "<group>"; };
+		3B9E93841997B03B00565A36 /* status_item_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = status_item_icon.png; sourceTree = "<group>"; };
+		3B9E93851997B03B00565A36 /* status_item_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "status_item_icon@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,8 @@
 		3B9E934419960F2B00565A36 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				3B9E93841997B03B00565A36 /* status_item_icon.png */,
+				3B9E93851997B03B00565A36 /* status_item_icon@2x.png */,
 				3B9E934519960F2B00565A36 /* vpnHelper-Info.plist */,
 				3B9E934619960F2B00565A36 /* InfoPlist.strings */,
 				3B9E934919960F2B00565A36 /* main.m */,
@@ -251,6 +257,8 @@
 				3B9E934819960F2B00565A36 /* InfoPlist.strings in Resources */,
 				3B9E935619960F2B00565A36 /* Images.xcassets in Resources */,
 				3B9E934E19960F2B00565A36 /* Credits.rtf in Resources */,
+				3B9E93861997B03B00565A36 /* status_item_icon.png in Resources */,
+				3B9E93871997B03B00565A36 /* status_item_icon@2x.png in Resources */,
 				3B9E935419960F2B00565A36 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,7 +405,6 @@
 		3B9E936C19960F2B00565A36 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vpnHelper/vpnHelper-Prefix.pch";
@@ -410,7 +417,6 @@
 		3B9E936D19960F2B00565A36 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "vpnHelper/vpnHelper-Prefix.pch";
@@ -479,6 +485,7 @@
 				3B9E936D19960F2B00565A36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3B9E936E19960F2B00565A36 /* Build configuration list for PBXNativeTarget "vpnHelperTests" */ = {
 			isa = XCConfigurationList;
@@ -487,6 +494,7 @@
 				3B9E937019960F2B00565A36 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
