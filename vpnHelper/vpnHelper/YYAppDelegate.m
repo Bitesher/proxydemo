@@ -119,9 +119,13 @@ NSString *const autoVPNKey = @"autoVPNKey";
     [prefs synchronize];
     
     if ((item.state = !item.state)) {
-        [[YYVPNService sharedService] startWithService:service successfullBlock:nil failureBlock:nil];
+        [[YYVPNService sharedService] startWithService:service successfullBlock:nil failureBlock:^(NSError *error) {
+            item.state = !item.state;
+        }];
     }else {
-        [[YYVPNService sharedService] stopWithService:service successfullBlock:nil failureBlock:nil];
+        [[YYVPNService sharedService] stopWithService:service successfullBlock:nil failureBlock:^(NSError *error) {
+            item.state = !item.state;
+        }];
     }
 }
 
