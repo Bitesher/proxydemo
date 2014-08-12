@@ -86,6 +86,7 @@ NSString *const autoVPNKey = @"autoVPNKey";
 
 - (void)observeHotKey {
     DDHotKeyCenter *ddhot = [DDHotKeyCenter sharedHotKeyCenter];
+    //设置监听快捷键
     [ddhot registerHotKeyWithKeyCode:kVK_ANSI_V modifierFlags:NSControlKeyMask|NSShiftKeyMask task:^(NSEvent *event) {
         //快捷键触发操作
         
